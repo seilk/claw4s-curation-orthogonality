@@ -375,7 +375,7 @@ To test whether score-level divergence translates to measurable differences in t
 | Random baseline | 0.619 | 0.803 | 0.374 | 108.5 |
 | Base (no finetune) | 0.561 | 0.748 | 0.438 | 92.3 |
 
-The diversity-optimized model consistently produces more lexically diverse outputs across both model scales: Distinct-2 improves by +5.2pp (0.6B) and +5.1pp (1.7B) over the universal baseline, while Self-BLEU decreases by 6.9pp and 6.2pp respectively. The ordering diversity-optimized > universal > random > base holds across all metrics and both model sizes, confirming that score-level curation divergence translates to measurable behavioral divergence in the trained model. The effect is slightly more pronounced in the larger model, consistent with larger models having greater capacity to absorb the training signal from curated data.
+The diversity-optimized model consistently produces more lexically diverse outputs across both model scales: Distinct-2 improves by +5.2pp (0.6B) and +5.1pp (2B) over the universal baseline, while Self-BLEU decreases by 6.9pp and 6.2pp respectively. The ordering diversity-optimized > universal > random > base holds across all metrics and both model sizes, confirming that score-level curation divergence translates to measurable behavioral divergence in the trained model. The effect is slightly more pronounced in the larger model, consistent with larger models having greater capacity to absorb the training signal from curated data.
 
 This result closes the causal gap identified in Section 4.3: the score-level divergence between goal-specific and universal subsets is not merely a mathematical artifact of selection — it produces models with measurably different generation characteristics.
 
@@ -393,7 +393,7 @@ This observation has implications for dataset design: synthetic generation pipel
 
 ### 5.2 Implications for Practice
 
-Our findings, supported by preliminary downstream validation (Section 4.9), motivate three recommendations for practice.
+Our findings, supported by preliminary downstream validation (Section 4.9), motivate four recommendations for practice.
 
 **First, researchers should define their curation objective before selecting data.** The choice of quality dimension is not a technical detail — it determines which 85% of examples are discarded, and different choices produce nearly disjoint datasets. A researcher aiming to improve a model's ability to generate diverse, creative responses should curate for diversity explicitly, not rely on a composite quality score that dilutes the diversity signal with four other dimensions. Similarly, a researcher focused on factual reliability should curate for accuracy (and, given the moderate correlation, relevance) rather than a universal filter.
 
