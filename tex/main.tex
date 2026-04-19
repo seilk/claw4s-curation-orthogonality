@@ -40,6 +40,8 @@ Yet a common pattern persists: ``quality'' is defined through a single composite
 
 No prior work tests this assumption directly.
 QuRating~\cite{wettig2024qurating} introduced multi-dimensional quality scoring for pretraining data but did not examine whether dimensions produce independent subsets.
+HelpSteer2~\cite{wang2024helpsteer2} annotates five quality dimensions for reward-model training but does not test whether the induced subsets are independent.
+QDIT~\cite{bukharin2024qdit} balances quality against diversity during instruction-tuning curation yet still reduces both to a single selection score.
 DoReMi~\cite{xie2023doremi} optimizes domain-level mixtures but does not address within-domain quality dimensions.
 
 We fill this gap with a simple experimental design: score each example in two instruction-tuning datasets across five quality dimensions, select top-30\% subsets per dimension, and measure rank correlation, set overlap, and quality loss from universal filtering.
@@ -55,7 +57,7 @@ We define five dimensions spanning semantic and structural quality:
 \emph{accuracy} ($q_{\text{acc}}$) and \emph{relevance} ($q_{\text{rel}}$) via LLM-as-judge (gpt-4.1-mini, $T=0$, 200-sample subsample, median imputation);
 \emph{conciseness} ($q_{\text{conc}}$) via hedging-rate and length penalty;
 \emph{diversity} ($q_{\text{div}}$) combining embedding distance from centroid (weight 0.6) with distinct-2 ratio (0.4);
-\emph{information density} ($q_{\text{info}}$) combining compression ratio with character-level Shannon entropy (equal weights).
+\emph{information density} ($q_{\text{info}}$) combining compression ratio with word-level Shannon entropy (equal weights).
 
 \textbf{Curation protocol.}
 For each dimension $q_k$: (1) min-max normalize scores to $[0,1]$; (2) select the top-30\% subset $S_{q_k}$; (3) compute the universal baseline $q_{\text{univ}} = \frac{1}{5}\sum_k \tilde{q}_k$ and select its top-30\%.
@@ -107,7 +109,7 @@ WizardLM replicates the core finding: accuracy--relevance $\tau = 0.494$, all cr
 However, statistical dimensions show elevated inter-correlation (conciseness--info\_density $\tau = 0.499$, diversity--info\_density $\tau = 0.317$), suggesting evolutionary generation introduces a shared ``complexity'' factor absent in human-curated data.
 
 \textbf{Downstream validation.}
-To test whether score-level divergence translates to trained-model behavior, we finetuned Qwen3.5-0.6B and Qwen3.5-2B~\cite{qwen2025qwen3} on three Alpaca subsets (diversity-optimized, universal composite, random baseline; $N \approx 15{,}593$ per subset; 3 epochs, fixed lr = $2 \times 10^{-5}$) and evaluated each model on 500 held-out instructions.
+To test whether score-level divergence translates to trained-model behavior, we finetuned Qwen3.5-0.6B and Qwen3.5-2B~\cite{qwen2025qwen3} on three Alpaca subsets (diversity-optimized, universal composite, random baseline; $N \approx 15{,}593$ per subset; 3 epochs, fixed lr = $2 \times 10^{-5}$, single seed = 42) and evaluated each model on 500 held-out instructions.
 The diversity-optimized subset yields the highest Distinct-2 and lowest Self-BLEU at both scales: on Qwen3.5-0.6B, $+5.2$pp Distinct-2 and $-6.9$pp Self-BLEU vs.\ universal; on Qwen3.5-2B, $+5.1$pp and $-6.2$pp.
 The ordering diversity-optimized $>$ universal $>$ random $>$ base holds across all diversity metrics and both model sizes, closing the causal gap between score-level divergence and trained-model behavior.
 
@@ -119,6 +121,7 @@ Composite filtering cannot simultaneously optimize all dimensions: a practitione
 \textbf{Practical implications.}
 Researchers should define their curation objective before filtering, dataset publishers should provide multi-dimensional quality metadata, and single-score leaderboards may obscure meaningful per-dimension tradeoffs.
 Our downstream validation shifts these recommendations from score-distribution characterization to preliminary evidence of measurable generation differences in trained models.
+The statistical protocol (rank-independence screening plus per-dimension Jaccard) is dataset- and modality-agnostic: the same nonparametric tests apply directly to any corpus with $\geq 2$ candidate scoring dimensions, making it straightforward to replicate on multilingual, multimodal, or pretraining data without methodological change.
 
 \textbf{Limitations.}
 LLM-as-judge scores for accuracy and relevance are based on 200-sample subsets with median imputation (99.6\% tied), limiting interpretability of $\tau$ for these pairs; our bootstrap reanalysis ($K = 5$, $N = 1{,}000$, no imputation) addresses this only for the subsample.
