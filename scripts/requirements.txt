@@ -1,0 +1,10 @@
+pandas>=2.1
+scipy>=1.11
+scikit-learn>=1.2
+sentence-transformers>=2.2
+tiktoken>=0.5
+openai>=1.50
+matplotlib>=3.8
+seaborn>=0.12
+datasets>=2.12
+pytest>=9.0
