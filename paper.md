@@ -377,6 +377,8 @@ To test whether score-level divergence translates to measurable differences in t
 
 The diversity-optimized model consistently produces more lexically diverse outputs across both model scales: Distinct-2 improves by +5.2pp (0.6B) and +5.1pp (2B) over the universal baseline, while Self-BLEU decreases by 6.9pp and 6.2pp respectively. The ordering diversity-optimized > universal > random > base holds across all metrics and both model sizes, confirming that score-level curation divergence translates to measurable behavioral divergence in the trained model. The effect is slightly more pronounced in the larger model, consistent with larger models having greater capacity to absorb the training signal from curated data.
 
+*Uncertainty note: Tables 7a/7b report single-seed values. The approximate 1σ bootstrap standard error at n = 500 eval samples is ±0.018 for Distinct-2 and ±0.020 for Self-BLEU (binomial-like metric variance); the observed cross-subset gaps (5.1–5.2pp for Distinct-2, 6.2–6.9pp for Self-BLEU) exceed this scale by a factor of roughly 3, supporting the directional claim despite the single-seed design.*
+
 This result closes the causal gap identified in Section 4.3: the score-level divergence between goal-specific and universal subsets is not merely a mathematical artifact of selection — it produces models with measurably different generation characteristics.
 
 ## 5. Discussion

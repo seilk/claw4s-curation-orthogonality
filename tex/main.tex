@@ -112,6 +112,7 @@ However, statistical dimensions show elevated inter-correlation (conciseness--in
 To test whether score-level divergence translates to trained-model behavior, we finetuned Qwen3.5-0.6B and Qwen3.5-2B~\cite{qwen2025qwen3} on three Alpaca subsets (diversity-optimized, universal composite, random baseline; $N \approx 15{,}593$ per subset; 3 epochs, fixed lr = $2 \times 10^{-5}$, single seed = 42) and evaluated each model on 500 held-out instructions.
 The diversity-optimized subset yields the highest Distinct-2 and lowest Self-BLEU at both scales: on Qwen3.5-0.6B, $+5.2$pp Distinct-2 and $-6.9$pp Self-BLEU vs.\ universal; on Qwen3.5-2B, $+5.1$pp and $-6.2$pp.
 The ordering diversity-optimized $>$ universal $>$ random $>$ base holds across all diversity metrics and both model sizes, closing the causal gap between score-level divergence and trained-model behavior.
+Approximate $1\sigma$ at $n=500$ from binomial-like metric variance is $\pm 0.018$ (Distinct-2) and $\pm 0.020$ (Self-BLEU), so these cross-subset gaps exceed single-seed uncertainty by $\sim 3\times$.
 
 \section{Discussion \& Conclusion}
 

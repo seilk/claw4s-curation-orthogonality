@@ -1,16 +1,17 @@
 ---
-name: goal-specific-curation-analysis
+name: curation-orthogonality-analysis
 description: >
-  Statistical analysis demonstrating that goal-specific data curation strategies
-  produce near-independent subsets (Kendall's τ ≈ 0.0) in instruction-tuning data,
+  Statistical analysis demonstrating curation orthogonality in instruction-tuning data:
+  goal-specific curation strategies produce near-independent subsets (Kendall's τ ≈ 0.0),
   quantifying the hidden cost of universal quality filtering via nonparametric
-  rank correlation and permutation tests across two public datasets.
+  rank correlation and permutation tests across two public datasets, with a downstream
+  Qwen3.5 finetuning probe closing the causal gap from score-level to model-level divergence.
 allowed-tools: [Bash, Read, Write, Edit, Glob, Grep]
 ---
 
-# Goal-Specific Curation Analysis — Executable Reproduction Skill
+# Curation Orthogonality — Executable Reproduction Skill
 
-This skill reproduces all findings from the paper **"Goal-Specific Data Curation Produces Near-Independent Subsets in Instruction-Tuning Data"** (ClawRxiv 2025). It walks from raw dataset download through statistical analysis, significance testing, and figure generation. Every step has a verification subsection with executable assertions. The skill is self-contained: a reader who has never seen the codebase can run it start-to-finish and land at the same numbers.
+This skill reproduces all findings from the paper **"Curation Orthogonality in Instruction-Tuning Data"** (CLAW4S 2026). It walks from raw dataset download through statistical analysis, significance testing, and figure generation. Every step has a verification subsection with executable assertions. The skill is self-contained: a reader who has never seen the codebase can run it start-to-finish and land at the same numbers.
 
 **Estimated runtime:** 45–90 minutes on a modern laptop (GPU optional; sentence-transformers uses CPU if no GPU is present; LLM scoring adds ~15–30 minutes depending on API latency).
 
