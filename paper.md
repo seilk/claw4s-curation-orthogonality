@@ -182,6 +182,8 @@ The near-zero correlations mean that knowing an example's rank on one quality di
 
 ![Figure 1. Kendall's τ correlation matrix for Alpaca (left) and WizardLM (right). Off-diagonal entries are near zero in Alpaca (8 of 10 pairs with |τ| < 0.10); WizardLM shows elevated within-group correlation among statistical dimensions (conciseness–info_density τ = 0.499, diversity–info_density τ = 0.317) absent in human-curated data.](https://raw.githubusercontent.com/seilk/claw4s-curation-orthogonality/main/figures/paper_tau_comparison.png)
 
+*📂 If the figure does not render, view it on GitHub: [figures/paper_tau_comparison.png](https://github.com/seilk/claw4s-curation-orthogonality/blob/main/figures/paper_tau_comparison.png)*
+
 ### 4.2 Subset Divergence
 
 The rank-level independence documented in Section 4.1 translates into dramatic divergence at the subset level. Table 2 reports selected Jaccard similarities between top-30% curated subsets for the Alpaca dataset.
@@ -207,6 +209,8 @@ The accuracy–relevance pair at J = 0.991 shows near-identical subset selection
 The diversity–universal pair at J = 0.308 directly quantifies the mismatch between goal-specific and universal curation. Only 30.8% of examples overlap between the diversity-optimized subset and the universal (equal-weight composite) subset. This means that 69.2% of the diversity-optimized examples are *not* selected by universal filtering, and a substantial fraction of the universally selected examples are suboptimal for diversity.
 
 ![Figure 2. Jaccard overlap matrix between top-30% goal-specific subsets on Alpaca. The diversity ↔ information-density cell (J = 0.154) sits below the random-null baseline (J_null = 0.176), indicating that the two statistical curation targets select almost disjoint slices of the dataset.](https://raw.githubusercontent.com/seilk/claw4s-curation-orthogonality/main/figures/jaccard_heatmap.png)
+
+*📂 If the figure does not render, view it on GitHub: [figures/jaccard_heatmap.png](https://github.com/seilk/claw4s-curation-orthogonality/blob/main/figures/jaccard_heatmap.png)*
 
 ### 4.3 Score Distribution Divergence Under Universal Filtering
 
@@ -234,6 +238,8 @@ For accuracy, conciseness, and relevance, scores cluster near their ceiling valu
 
 ![Figure 3. Score distribution gap (Δ = goal-specific − universal) per dimension on Alpaca. Diversity (+0.053) and information density (+0.040) incur the largest losses under universal filtering; ceiling-bound dimensions (accuracy, conciseness, relevance) show negligible gaps reflecting score compression.](https://raw.githubusercontent.com/seilk/claw4s-curation-orthogonality/main/figures/paper_quality_loss.png)
 
+*📂 If the figure does not render, view it on GitHub: [figures/paper_quality_loss.png](https://github.com/seilk/claw4s-curation-orthogonality/blob/main/figures/paper_quality_loss.png)*
+
 ### 4.4 Permutation Test
 
 To confirm that the observed τ values are not artifacts of the scoring procedure, we conducted permutation tests on all 10 dimension pairs using 1,000 iterations with 5,000-example subsamples.
@@ -245,6 +251,8 @@ Critically, the permutation test confirms that the moderate accuracy–relevance
 **Caveat on LLM-imputed dimensions.** Significance for pairs involving accuracy or relevance should be interpreted with the caveat documented in Section 4.7: the massive tied-rank structure imposed by median imputation (99.6% of values tied) renders permutation tests unreliable for these pairs, as permuting a near-constant vector produces near-zero null τ regardless of the true relationship. The permutation results for the three fully-computed statistical dimensions (conciseness, diversity, info_density) are our most reliable significance estimates.
 
 ![Figure 4. Permutation null distributions for all 10 dimension pairs on Alpaca (1,000 iterations, n = 5,000 subsamples). Red vertical lines mark the observed τ. Five pairs — including accuracy–relevance (τ = 0.381) and conciseness–info_density (τ = 0.080) — fall clearly outside the null distribution (p < 0.01, BH-corrected); the remaining five are indistinguishable from independence.](https://raw.githubusercontent.com/seilk/claw4s-curation-orthogonality/main/figures/paper_permutation_null.png)
+
+*📂 If the figure does not render, view it on GitHub: [figures/paper_permutation_null.png](https://github.com/seilk/claw4s-curation-orthogonality/blob/main/figures/paper_permutation_null.png)*
 
 ### 4.5 Cross-Dataset Replication
 
@@ -296,6 +304,8 @@ At all retention rates, the observed mean Jaccard is close to the null expectati
 The monotonic decrease in mean Jaccard at lower retention rates is expected and informative: stricter selection amplifies the divergence between dimensions because it pushes further into the tails of the score distributions, where the near-independence of dimensions translates into maximally different example selections. This confirms that the divergence is not an artifact of the 30% threshold but a genuine property of the multi-dimensional score landscape.
 
 ![Figure 5. Sensitivity of mean Jaccard similarity to retention rate α ∈ {0.20, 0.30, 0.50} on Alpaca, compared against the random-null baseline J_null = α. The gap between observed and null narrows monotonically at higher α, consistent with near-independence being sharpest in the tails.](https://raw.githubusercontent.com/seilk/claw4s-curation-orthogonality/main/figures/sensitivity_plot.png)
+
+*📂 If the figure does not render, view it on GitHub: [figures/sensitivity_plot.png](https://github.com/seilk/claw4s-curation-orthogonality/blob/main/figures/sensitivity_plot.png)*
 
 The Kendall's τ values, being computed over the full dataset, are invariant to the retention rate and provide the same point estimates at all thresholds.
 
