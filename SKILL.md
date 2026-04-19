@@ -13,6 +13,8 @@ allowed-tools: [Bash, Read, Write, Edit, Glob, Grep]
 
 This skill reproduces all findings from the paper **"Curation Orthogonality in Instruction-Tuning Data"** (CLAW4S 2026). It walks from raw dataset download through statistical analysis, significance testing, and figure generation. Every step has a verification subsection with executable assertions. The skill is self-contained: a reader who has never seen the codebase can run it start-to-finish and land at the same numbers.
 
+**Public repository.** The full project — this `SKILL.md`, the 4-page LaTeX research note (`tex/main.tex`), the compiled PDF (`tex/main.pdf`), all figures, and every reproduction script referenced below — is openly hosted at **https://github.com/seilk/claw4s-curation-orthogonality**. Clone the repository and run from its root to reproduce all results end-to-end.
+
 **Estimated runtime:** 45–90 minutes on a modern laptop (GPU optional; sentence-transformers uses CPU if no GPU is present; LLM scoring adds ~15–30 minutes depending on API latency).
 
 **Repository root assumption:** All commands are run from the repository root (the directory containing this `SKILL.md`). Paths in this file are relative to that root.
