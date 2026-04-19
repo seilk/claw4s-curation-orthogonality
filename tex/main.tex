@@ -40,6 +40,8 @@ Yet a common pattern persists: ``quality'' is defined through a single composite
 
 No prior work tests this assumption directly.
 QuRating~\cite{wettig2024qurating} introduced multi-dimensional quality scoring for pretraining data but did not examine whether dimensions produce independent subsets.
+HelpSteer2~\cite{wang2024helpsteer2} annotates five quality dimensions for reward-model training but does not test whether the induced subsets are independent.
+QDIT~\cite{bukharin2024qdit} balances quality against diversity during instruction-tuning curation yet still reduces both to a single selection score.
 DoReMi~\cite{xie2023doremi} optimizes domain-level mixtures but does not address within-domain quality dimensions.
 
 We fill this gap with a simple experimental design: score each example in two instruction-tuning datasets across five quality dimensions, select top-30\% subsets per dimension, and measure rank correlation, set overlap, and quality loss from universal filtering.
@@ -55,7 +57,7 @@ We define five dimensions spanning semantic and structural quality:
 \emph{accuracy} ($q_{\text{acc}}$) and \emph{relevance} ($q_{\text{rel}}$) via LLM-as-judge (gpt-4.1-mini, $T=0$, 200-sample subsample, median imputation);
 \emph{conciseness} ($q_{\text{conc}}$) via hedging-rate and length penalty;
 \emph{diversity} ($q_{\text{div}}$) combining embedding distance from centroid (weight 0.6) with distinct-2 ratio (0.4);
-\emph{information density} ($q_{\text{info}}$) combining compression ratio with character-level Shannon entropy (equal weights).
+\emph{information density} ($q_{\text{info}}$) combining compression ratio with word-level Shannon entropy (equal weights).
 
 \textbf{Curation protocol.}
 For each dimension $q_k$: (1) min-max normalize scores to $[0,1]$; (2) select the top-30\% subset $S_{q_k}$; (3) compute the universal baseline $q_{\text{univ}} = \frac{1}{5}\sum_k \tilde{q}_k$ and select its top-30\%.
